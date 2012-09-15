@@ -1,7 +1,7 @@
 -- create a database whose default temporary tablespace is SYSTEM tablespace
 create database mynewdb
-user sys identified by delphix
-user system identified by delphix
+user sys identified by oracle
+user system identified by oracle
 logfile group 1 ('/opt/oracle/oradata/mynewdb/redo1.log') size 512M,
 group 2 ('/opt/oracle/oradata/mynewdb/redo2.log') size 512M,
 group 3 ('/opt/oracle/oradata/mynewdb/redo3.log') size 512M
