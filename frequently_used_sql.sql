@@ -73,11 +73,11 @@ select type,status_code,status from v$logstdby_process;
 select recid,set_stamp,set_count,backup_type,incremental_level from v$backup_set;
 
 -- MDS
--- svccfg -s delphix/mgmt setprop delphix/debug=true
--- svcadm refresh delphix/mgmt
--- jdbc:derby://172.16.100.65:1527//var/delphix/server/db/hercules;user=mds;password=iamMDS
+-- svccfg -s d/mgmt setprop d/debug=true
+-- svcadm refresh d/mgmt
+-- jdbc:derby://172.16.100.65:1527//var/d/server/db/hercules;user=mds;password=iamMDS
 -- or
--- /opt/delphix/server/bin/derby_client
+-- /opt/d/server/bin/derby_client
 
 select snapshot_id,count(*) as files from snl_orcl_db_files where database_id=1 and file_type=1 group by snapshot_id;
 
