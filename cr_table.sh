@@ -5,7 +5,7 @@ export PATH=$PATH:$ORACLE_HOME/bin
 sqlplus '/as sysdba' <<EOF
 @$ORACLE_HOME/rdbms/admin/dbmsrand.sql
 drop user samtest;
-create user samtest identified by samtest default tablespace DELPHIX;
+create user samtest identified by samtest default tablespace ORACLE;
 grant dba,connect,resource to samtest;
 conn samtest/samtest
 exit;
