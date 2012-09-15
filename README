@@ -1,6 +1,6 @@
 README
 ======
-This repository contains frequently used scripts for my daily work at Delphix.
+This repository contains frequently used scripts for my daily work with Oracle Database.
 
 1. del_arch.sh
 A shell script used to delete archivelogs that older than sysdate-1.
