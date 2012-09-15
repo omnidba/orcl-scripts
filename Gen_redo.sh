@@ -169,7 +169,7 @@ if [ ! -d $fo ]; then
   exit 1;
 fi
 
-syspwd=delphix
+syspwd=oracle
 ORACLE_SID=$so
 export ORACLE_SID
 ORACLE_HOME=$ho
