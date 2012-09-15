@@ -1,0 +1,30 @@
+README
+======
+This repository contains frequently used scripts for my daily work at Delphix.
+
+1. get_iso_list.py
+A Python script used to list latest 5 ISO build files.
+
+2. create_delphix_user.sql
+A SQL script used to create Delphix user for dSource.
+
+3. del_arch.sh
+A shell script used to delete archivelogs that older than sysdate-1.
+
+4. cr_table.sh, generate_con.sh, gen_sqlldr_ctl.sh, exec_sqlldr.sh
+Shell scripts used to load database with bulk data.
+
+5. sudo.txt
+Necessary sudo priviledges for provisioning user.
+
+6. turn_on_rman_default_config.sh, revert_back_rman_default_config.sh
+Turn on all RMAN default settings and rever them back.
+
+7. create_db_with_system_as_def_temp_tbs.sql
+Create a database with SYSTEM tablespace as its default temporary tablespace.
+
+8. disableStandby.sh, enableStandby.sh
+Pre-script (disableStandby.sh) and post-script (enableStandby.sh) for SnapSync an 11g physical standby with RTA and ADG.
+
+9. disableStandby_10g.sh, enableStandby_10g.sh
+Pre-script (disableStandby_10g.sh) and post-script (enableStandby_10g.sh) for SnapSync a 10g physical standby with RTA.

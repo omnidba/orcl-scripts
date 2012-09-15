@@ -1,0 +1,2 @@
+Defaults:ora112 !requiretty
+ora112 ALL=NOPASSWD:/bin/mount, /bin/umount, /bin/mkdir, /bin/rmdir
