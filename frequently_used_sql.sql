@@ -1,12 +1,9 @@
 -- Frequently Used SQL Statements
 
+-- Redo
 select name,log_mode from v$database;
 
 select thread#,status,enabled from v$thread;
-
-select username,account_status from dba_users;
-
-select property_value from database_properties where property_name='DEFAULT_TEMP_TABLESPACE';
 
 select * from (select sequence#,thread#,first_time,next_time from v$archived_log order by sequence# desc) where rownum < 11;
 
@@ -14,16 +11,7 @@ select thread#,max(sequence#) from gv$archived_log where applied='YES' group by 
 
 select inst_id,thread#,sequence#,first_change#,first_time,next_change#,next_time,deleted from gv$archived_log where first_change#>12677179 and first_change#<15513401 and deleted='NO' order by sequence#;
 
-select tablespace_name,status from dba_tablespaces;
-
-select file_name,tablespace_name from dba_data_files;
-
-select sum(bytes / (1024*1024)) "DB Size in MB" from dba_data_files;
-
-select file#,ts#,status,enabled,checkpoint_change#,checkpoint_time,name from v$datafile where status='RECOVER';
-
 -- Standby
-
 alter database recover managed standby database using current logfile disconnect;
 
 alter database recover managed standby database cancel;
@@ -71,6 +59,19 @@ select type,status_code,status from v$logstdby_process;
 
 -- RMAN
 select recid,set_stamp,set_count,backup_type,incremental_level from v$backup_set;
+
+-- Misc
+select username,account_status from dba_users;
+
+select property_value from database_properties where property_name='DEFAULT_TEMP_TABLESPACE';
+
+select tablespace_name,status from dba_tablespaces;
+
+select file_name,tablespace_name from dba_data_files;
+
+select sum(bytes / (1024*1024)) "DB Size in MB" from dba_data_files;
+
+select file#,ts#,status,enabled,checkpoint_change#,checkpoint_time,name from v$datafile where status='RECOVER';
 
 -- MDS
 -- svccfg -s d/mgmt setprop d/debug=true
