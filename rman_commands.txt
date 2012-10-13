@@ -1,0 +1,36 @@
+# Frequently Used RMAN Commands
+
+# show
+show all;
+
+show default device type;
+
+show snapshot controlfile name;
+
+# list
+list archivelog all;
+
+list archivelog from seqence=0 thread 1;
+
+# crosscheck
+crosscheck backup;
+
+# delete
+delete expired backup;
+
+delete archivelog all;
+
+delete archivelog until seqence=1670 thread 1;
+
+# backup
+backup database plus archivelog;
+
+backup device type disk format '/u01/app/stage/Database%U' database plus archivelog;
+
+backup device type disk format '/u01/app/stage/Control%U' current controlfile for standby;
+
+# duplicate
+# rman target sys/oracle@chicago auxiliary /
+
+duplicate target database for standby;
+
