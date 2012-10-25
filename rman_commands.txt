@@ -10,7 +10,7 @@ show snapshot controlfile name;
 # list
 list archivelog all;
 
-list archivelog from seqence=0 thread 1;
+list archivelog from sequence=0 thread 1;
 
 # crosscheck
 crosscheck backup;
@@ -20,7 +20,7 @@ delete expired backup;
 
 delete archivelog all;
 
-delete archivelog until seqence=1670 thread 1;
+delete archivelog until sequence=1670 thread 1;
 
 # backup
 backup database plus archivelog;
