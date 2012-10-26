@@ -1,0 +1,22 @@
+-- DBFS
+-- Configuring DBFS on Oracle Database Machine MOS Note ID 1054431.1
+-- Configuring a Database for DBFS on Oracle Database Machine MOS Note ID 1191144.1
+-- Review MOS Note ID 1150157.1 for recommended patches.
+
+-- Patch 13340960
+
+-- As the RDBMS software owner,create the DBFS repository inside the repository database.
+
+create bigfile tablespace dbfsts datafile '+DATA' size 6G autoextend on next 2G maxsize 10G nologging extent management local autoallocate segment space management auto;
+
+create user dbfs_admin identified by delphix default tablespace dbfsts quota unlimited on dbfsts;
+
+grant create session,create table,create view,create procedure,dbfs_role to dbfs_admin;
+
+cd $ORACLE_HOME/rdbms/admin
+
+sqlplus dbfs_admin/delphix
+
+start dbfs_create_filesystem dbfsts staging_area
+
+
