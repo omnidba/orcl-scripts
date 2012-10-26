@@ -9,13 +9,13 @@
 
 create bigfile tablespace dbfsts datafile '+DATA' size 6G autoextend on next 2G maxsize 10G nologging extent management local autoallocate segment space management auto;
 
-create user dbfs_admin identified by delphix default tablespace dbfsts quota unlimited on dbfsts;
+create user dbfs_admin identified by oracle default tablespace dbfsts quota unlimited on dbfsts;
 
 grant create session,create table,create view,create procedure,dbfs_role to dbfs_admin;
 
 cd $ORACLE_HOME/rdbms/admin
 
-sqlplus dbfs_admin/delphix
+sqlplus dbfs_admin/oracle
 
 start dbfs_create_filesystem dbfsts staging_area
 
