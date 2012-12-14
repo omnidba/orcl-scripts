@@ -34,3 +34,8 @@ backup device type disk format '/u01/app/stage/Control%U' current controlfile fo
 
 duplicate target database for standby;
 
+# validate
+configure device type disk parallelism 10;
+
+backup validate database;
+
