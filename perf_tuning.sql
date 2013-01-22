@@ -67,3 +67,20 @@ alter table sales parallel (degree 16);
 select object_name,object_id from dba_objects where object_name='T1';
 
 select * from v$segstat where obj#=30427;
+
+-- Tablescan
+create bigfile tablespace bigtbs datafile '+DATA/trois/datafile/bigtbs_f1.dbf' size 10M autoextend on;
+
+create table t1 pctfree 99 pctused 1 tablespace bigtbs
+as
+  select
+    rownum id,
+    trunc(100 * dbms_random.normal) val,
+    rpad('x',100) padding
+  from
+    all_objects
+  where
+    rownum <= 10000
+;
+
+
