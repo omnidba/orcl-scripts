@@ -80,6 +80,10 @@ select file#,ts#,status,enabled,checkpoint_change#,checkpoint_time,name from v$d
 -- or
 -- /opt/d/server/bin/derby_client
 
+show tables in mds;
+
+select file_name from orcl_log where timeflow in (select timeflow from dlpx_container where name='dragon');
+
 select snapshot_id,count(*) as files from snl_orcl_db_files where database_id=1 and file_type=1 group by snapshot_id;
 
 select snapshot_id,checkpoint_scn,latest_scn from snl_orcl_db_snapshots where database_id=0;
