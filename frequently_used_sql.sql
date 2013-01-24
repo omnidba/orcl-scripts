@@ -3,6 +3,14 @@
 -- Redo
 select name,log_mode from v$database;
 
+select * from v$logfile;
+
+select lf.group#,lf.member,l.bytes/1024/1024 as MB from v$logfile lf,v$log l where lf.group#=l.group# order by group#;
+
+alter database add logfile '+DATA/ttdemo/onlinelog/group_4.rdo' size 52428800;
+
+alter database drop logfile group 4;
+
 select thread#,status,enabled from v$thread;
 
 select * from (select sequence#,thread#,first_time,next_time from v$archived_log order by sequence# desc) where rownum < 11;
