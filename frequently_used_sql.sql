@@ -7,9 +7,13 @@ select * from v$logfile;
 
 select lf.group#,lf.member,l.bytes/1024/1024 as MB from v$logfile lf,v$log l where lf.group#=l.group# order by group#;
 
-alter database add logfile '+DATA/ttdemo/onlinelog/group_4.rdo' size 52428800;
+alter database add logfile '+DATA/snltest/onlinelog/group_4.rdo' size 52428800;
 
 alter database drop logfile group 4;
+
+alter database logfile member '+DATA/snltest/onlinelog/group_3_1.rdo' to group 3;
+
+alter database drop logfile member '+DATA/snltest/onlinelog/group_3_1.rdo'; 
 
 select thread#,status,enabled from v$thread;
 
