@@ -39,6 +39,9 @@ select * from v$dataguard_stats where name = 'apply lag';
 select * from v$archive_gap;
 
 -- Logical Standby
+-- Standby
+alter database recover managed standby database cancel;
+
 -- Primary
 execute DBMS_LOGSTDBY.BUILD;
 
@@ -64,6 +67,14 @@ shutdown;
 startup;
 
 alter database start logical standby apply immediate;
+
+srvctl add database -d belmont -o /u01/app/ora112/product/11.2.0/db_1 -p "+DATA/belmont/spfilebelmont.ora" -r logical_standby -s open -a "DATA,LOG"
+
+srvctl add instance -d belmont -i belmont1 -n bbrac1
+
+srvctl add instance -d belmont -i belmont2 -n bbrac2
+
+srvctl start database -d belmont
 
 select * from v$logstdby_state;
 
