@@ -68,6 +68,8 @@ select object_name,object_id from dba_objects where object_name='T1';
 
 select * from v$segstat where obj#=30427;
 
+exec dbms_stats.gather_schema_stats(ownname=>'SOE',cascade=>dbms_stats.auto_cascade,degree=>48);
+
 -- Tablescan
 create bigfile tablespace bigtbs datafile '+DATA/trois/datafile/bigtbs_f1.dbf' size 10M autoextend on;
 
