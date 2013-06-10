@@ -5,15 +5,17 @@ select name,log_mode from v$database;
 
 select * from v$logfile;
 
-select lf.group#,lf.member,l.bytes/1024/1024 as MB from v$logfile lf,v$log l where lf.group#=l.group# order by group#;
+select lf.group#,lf.type,lf.member,l.bytes/1024/1024 as MB from v$logfile lf,v$log l where lf.group#=l.group# order by group#;
 
 alter database add logfile '+DATA/snltest/onlinelog/group_4.rdo' size 52428800;
 
 alter database drop logfile group 4;
 
-alter database logfile member '+DATA/snltest/onlinelog/group_3_1.rdo' to group 3;
+alter database add logfile member '+DATA/snltest/onlinelog/group_3_1.rdo' to group 3;
 
-alter database drop logfile member '+DATA/snltest/onlinelog/group_3_1.rdo'; 
+alter database drop logfile member '+DATA/snltest/onlinelog/group_3_1.rdo';
+
+alter database add standby logfile size 52428800; 
 
 select thread#,status,enabled from v$thread;
 
