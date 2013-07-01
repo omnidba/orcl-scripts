@@ -78,9 +78,15 @@ srvctl add instance -d belmont -i belmont2 -n bbrac2
 
 srvctl start database -d belmont
 
+-- Monitoring
 select * from v$logstdby_state;
 
 select type,status_code,status from v$logstdby_process;
+
+-- Purging Foreign Archived Logs
+execute dbms_logstdby.purge_session;
+
+select * from dba_logmnr_purged_log;
 
 -- RMAN
 select recid,set_stamp,set_count,backup_type,incremental_level from v$backup_set;
@@ -114,6 +120,8 @@ select snapshot_id,count(*) as files from snl_orcl_db_files where database_id=1 
 select snapshot_id,checkpoint_scn,latest_scn from snl_orcl_db_snapshots where database_id=0;
 
 select first_change_time,last_change_time,creation_time from DLPX_SNAPSHOT;
+
+select name,node_listener_list from ORCL_VIRTUAL_DB;
 
 -- Oracle RAC support in Alderaan
 select cluster,name,host from ORCL_CLUSTER_NODE;
