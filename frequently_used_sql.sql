@@ -94,6 +94,14 @@ select recid,set_stamp,set_count,backup_type,incremental_level from v$backup_set
 -- Misc
 select username,account_status from dba_users;
 
+drop user d cascade;
+
+select sid,serial#,username,machine from v$session where username='D';
+
+alter system kill session 'sid,serial#';
+
+revoke select any dictionary from d;
+
 select property_value from database_properties where property_name='DEFAULT_TEMP_TABLESPACE';
 
 select tablespace_name,status from dba_tablespaces;
