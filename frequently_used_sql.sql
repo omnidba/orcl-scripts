@@ -1,5 +1,16 @@
 -- Frequently Used SQL Statements
 
+-- Tablespace and Data File
+select file_name,tablespace_name,bytes/1024/1024 as MB,status,online_status from dba_data_files;
+
+alter tablespace BT datafile offline;
+
+alter tablespace BIGTBS resize 100M;
+
+alter tablespace BIGTBS2 begin backup;
+
+alter tablespace BIGTBS2 end backup;
+
 -- Redo
 select name,log_mode from v$database;
 
