@@ -1,7 +1,13 @@
 -- Frequently Used SQL Statements
 
 -- Tablespace and Data File
+create bigfile tablespace bigtbs datafile '+DATA/snltest/bigtbs_f1.dbf' size 10M autoextend on;
+
+drop tablespace BIGTBS including contents and datafiles;
+
 select file_name,tablespace_name,bytes/1024/1024 as MB,status,online_status from dba_data_files;
+
+alter tablespace NTBS read only;
 
 alter tablespace BT datafile offline;
 
@@ -10,6 +16,8 @@ alter tablespace BIGTBS resize 100M;
 alter tablespace BIGTBS2 begin backup;
 
 alter tablespace BIGTBS2 end backup;
+
+select d.tablespace_name,b.time,b.status from dba_data_files d, v$backup b where d.file_id=b.file# and b.status='ACTIVE';
 
 -- Redo
 select name,log_mode from v$database;
