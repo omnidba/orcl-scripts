@@ -12,6 +12,8 @@ list archivelog all;
 
 list archivelog from sequence=0 thread 1;
 
+list archivelog from sequence=0 thread 2;
+
 # crosscheck
 crosscheck backup;
 
@@ -25,15 +27,16 @@ delete archivelog until sequence=1670 thread 1;
 # backup
 backup database plus archivelog;
 
-backup device type disk format '/u01/app/stage/Database%U' database plus archivelog;
+backup device type disk format '/u01/app/stage/DB%U' database plus archivelog;
 
-backup device type disk format '/u01/app/stage/Control%U' current controlfile for standby;
+backup device type disk format '/u01/app/stage/CF%U' current controlfile for standby;
 
 # duplicate
 # rman target sys/oracle@chicago auxiliary /
 
 duplicate target database for standby;
 
+duplicate target database for standby dorecover nofilenamecheck;
+
 # validate
 run {configure device type disk parallelism 10; backup validate database;}
-
