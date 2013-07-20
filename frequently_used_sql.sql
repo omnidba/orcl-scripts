@@ -1,11 +1,15 @@
 -- Frequently Used SQL Statements
 
 -- Tablespace and Data File
-create bigfile tablespace bigtbs datafile '+DATA/snltest/bigtbs_f1.dbf' size 10M autoextend on;
+create bigfile tablespace BIGTBS datafile '+DATA/snltest/bigtbs_f1.dbf' size 10M autoextend on;
 
 drop tablespace BIGTBS including contents and datafiles;
 
 select file_name,tablespace_name,bytes/1024/1024 as MB,status,online_status from dba_data_files;
+
+alter tablespace NTBS add datafile '+DATA/snltest/ntbs_f2.dbf' size 20M autoextend on;
+
+alter tablespace NTBS rename to NEWTBS;
 
 alter tablespace NTBS read only;
 
@@ -18,6 +22,12 @@ alter tablespace BIGTBS2 begin backup;
 alter tablespace BIGTBS2 end backup;
 
 select d.tablespace_name,b.time,b.status from dba_data_files d, v$backup b where d.file_id=b.file# and b.status='ACTIVE';
+
+alter system set db_32k_cache_size=256M;
+
+create tablespace TBS32K blocksize 32k datafile '+DATA/db16/datafile/tbs32k_f1.dbf' size 10M autoextend on;
+
+select tablespace_name,block_size/1024 as KB from dba_tablespaces;
 
 -- Redo
 select name,log_mode from v$database;
@@ -109,6 +119,15 @@ select * from dba_logmnr_purged_log;
 
 -- RMAN
 select recid,set_stamp,set_count,backup_type,incremental_level from v$backup_set;
+
+-- Flashback
+alter system set db_recovery_file_dest_size=9G scope=both;
+
+alter system set db_recovery_file_dest='+LOG' scope=both;
+
+alter system set db_flashback_retention_target=1440;
+
+alter system set log_archive_dest_2='LOCATION=USE_DB_RECOVERY_FILE_DEST';
 
 -- Misc
 select username,account_status from dba_users;
