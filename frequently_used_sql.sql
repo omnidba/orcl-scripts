@@ -129,6 +129,14 @@ alter system set db_flashback_retention_target=1440;
 
 alter system set log_archive_dest_2='LOCATION=USE_DB_RECOVERY_FILE_DEST';
 
+select flashback_on from v$database;
+
+alter database flashback on;
+
+select current_scn from v$database;
+
+select oldest_flashback_scn,oldest_flashback_time from v$flashback_database_log;
+
 -- Misc
 select username,account_status from dba_users;
 
