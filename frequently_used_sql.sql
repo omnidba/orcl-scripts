@@ -29,6 +29,12 @@ create tablespace TBS32K blocksize 32k datafile '+DATA/db16/datafile/tbs32k_f1.d
 
 select tablespace_name,block_size/1024 as KB from dba_tablespaces;
 
+create table table_ctas_nologging12 tablespace test_data nologging as select * from dba_objects;
+
+create index objid_idx on table_ctas_nologging1(object_id) nologging;
+
+select name,checkpoint_time,unrecoverable_time,unrecoverable_change# from v$datafile;
+
 -- Redo
 select name,log_mode from v$database;
 
