@@ -27,13 +27,19 @@ alter system set db_32k_cache_size=256M;
 
 create tablespace TBS32K blocksize 32k datafile '+DATA/db16/datafile/tbs32k_f1.dbf' size 10M autoextend on;
 
-select tablespace_name,block_size/1024 as KB from dba_tablespaces;
+select tablespace_name,status,block_size/1024 as KB from dba_tablespaces;
 
 create table table_ctas_nologging12 tablespace test_data nologging as select * from dba_objects;
 
 create index objid_idx on table_ctas_nologging1(object_id) nologging;
 
+select file_name,tablespace_name from dba_data_files;
+
+select sum(bytes / (1024*1024)) "DB Size in MB" from dba_data_files;
+
 select name,checkpoint_time,unrecoverable_time,unrecoverable_change# from v$datafile;
+
+select file#,ts#,status,enabled,checkpoint_change#,checkpoint_time,name from v$datafile where status='RECOVER';
 
 -- Redo
 select name,log_mode from v$database;
@@ -156,13 +162,7 @@ revoke select any dictionary from d;
 
 select property_value from database_properties where property_name='DEFAULT_TEMP_TABLESPACE';
 
-select tablespace_name,status from dba_tablespaces;
-
-select file_name,tablespace_name from dba_data_files;
-
-select sum(bytes / (1024*1024)) "DB Size in MB" from dba_data_files;
-
-select file#,ts#,status,enabled,checkpoint_change#,checkpoint_time,name from v$datafile where status='RECOVER';
+select s.sid,s.serial#,p.spid,s.username,s.program from v$session s join v$process p on p.addr=s.paddr where s.type!='BACKGROUND';
 
 -- MDS
 -- svccfg -s d/mgmt setprop d/debug=true
